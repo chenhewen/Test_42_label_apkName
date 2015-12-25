@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.test_42_label_apkname"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+
+    <!-- 辅助功能强杀服务的权限		辅助杀，辅助禁用模块所用（格式下同，？？代表暂不知哪个模块用到） -->
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+    <!-- 杀进程	内存查杀 -->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <!-- 允许程序访问精良位置		?? -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+    <!-- 允许程序获取当前或最近运行的应用    	悬浮窗、应用管理等 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 允许程序获取任何package占用空间容量	应用管理 -->
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
+    <!-- 清除应用缓存	清理 -->
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <!-- 读取浏览器收藏夹和历史记录		?? -->
+    <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+    <!-- 写入浏览器历史记录或收藏夹		?? -->
+    <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS" />
+    <!-- 读取系统底层日志		?? -->
+    <!-- <uses-permission android:name="android.permission.READ_LOGS" /> -->
+    <!-- 允许程序写入外部存储，如SD卡上写文件		若干模块 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取电话状态	辅助禁用模块等 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 获取WiFi状态	快捷栏模块等 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取网络状态	快捷栏模块等 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 显示系统窗口	悬浮窗、辅助杀、辅助禁用等 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 创建快捷方式	快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <!-- 卸载快捷方式	快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <!-- 获取已经存在的快捷方式的信息	快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <!-- 允许应用程序更改主屏幕中的设置和快捷方式。	快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+    <!-- 获取已经存在的快捷方式的信息	快捷方式 -->
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
+    <!-- 允许应用程序更改主屏幕中的设置和快捷方式。	快捷方式 -->
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
+    <!-- 联网	若干模块 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 挂载文件系统		?? -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 允许程序保持设备不休眠(屏幕常亮，CPU不休眠等)	?? -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 获取电池电量统计信息	电量相关 -->
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <!-- 允许程序收到广播后快速收到下一个广播	若干模块 -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <!-- 允许振动	悬浮窗 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 访问GMail账户列表	反馈 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 改变WiFi状态	快捷栏 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 改变网络状态	快捷栏 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 允许读写系统设置项	若干模块 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 允许程序扩展或收缩状态栏	快捷栏 -->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <!-- 允许访问摄像头进行拍照	快捷栏 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 设置闹铃提醒	若干模块 -->
+    <!-- <uses-permission android:name="com.android.alarm.permission.SET_ALARM" /> -->
+    <!-- 允许程序开机自动运行	自启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 允许访问闪光灯	快捷栏 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <!-- 允许访问摄像头进行拍照	快捷栏 -->
+    <!-- <uses-permission android:name="android.hardware.camera" /> -->
+    <!--
+ 充许用户在设置(设置 -> 安全 -> 高级 -> 有权查看使用情况的应用(Apps with
+	 * usage access))中授权后可访问用户的应用使用统计信息，如识当前打开的应用
+    -->
+    <application
+        android:name="com.example.test_42_label_apkname.MainApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.test_42_label_apkname.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

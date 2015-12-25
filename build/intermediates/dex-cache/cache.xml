@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/chenhewen/F/android_studio/Test_42_label_apkName/libs/nineoldandroidlib.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9aaa987e3c67c26add6aed10e7abb2158768ae93">
+        <dex dex="/home/chenhewen/F/android_studio/Test_42_label_apkName/app/build/intermediates/pre-dexed/debug/nineoldandroidlib-89d2f96883e491f96a891a021bd5a943271188bc.jar" />
+    </item>
+
+</items>
