@@ -2,11 +2,25 @@
 <items version="2" >
 
     <item
-        jar="/home/chenhewen/F/android_studio/Test_42_label_apkName/libs/nineoldandroidlib.jar"
+        jar="E:\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="F:\AndroidStudioProjects\Test_42_label_apkName\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-2e6e25d109b7d5cb6678a669b8dfd80fa379256f.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\Test_42_label_apkName\libs\nineoldandroidlib.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="9aaa987e3c67c26add6aed10e7abb2158768ae93">
-        <dex dex="/home/chenhewen/F/android_studio/Test_42_label_apkName/app/build/intermediates/pre-dexed/debug/nineoldandroidlib-89d2f96883e491f96a891a021bd5a943271188bc.jar" />
+        <dex dex="F:\AndroidStudioProjects\Test_42_label_apkName\app\build\intermediates\pre-dexed\debug\nineoldandroidlib-9d90b1d50632e82c6ea27ba9da48134b36679f60.jar" />
+    </item>
+    <item
+        jar="F:\AndroidStudioProjects\Test_42_label_apkName\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="F:\AndroidStudioProjects\Test_42_label_apkName\app\build\intermediates\pre-dexed\debug\classes-92022277239d35104d01bd566e08c135e43f0d96.jar" />
     </item>
 
 </items>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/chenhewen/F/android_studio/Test_42_label_apkName/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values/values.xml -->
+    <!-- From: file:/F:/AndroidStudioProjects/Test_42_label_apkName/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="actionBarDivider"/>
     <attr format="reference" name="actionBarItemBackground"/>
@@ -131,12 +131,12 @@
     <string name="abc_searchview_description_voice">Voice search</string>
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
-    <!-- From: file:/home/chenhewen/F/android_studio/Test_42_label_apkName/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/F:/AndroidStudioProjects/Test_42_label_apkName/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">Test_42_label_apkName</string>
     <string name="hello_world">Hello world!</string>
     <string name="main_application">MainApplication</string>
-    <!-- From: file:/home/chenhewen/F/android_studio/Test_42_label_apkName/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/F:/AndroidStudioProjects/Test_42_label_apkName/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
@@ -148,7 +148,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    <!-- From: file:/home/chenhewen/F/android_studio/Test_42_label_apkName/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values/values.xml -->
+    <!-- From: file:/F:/AndroidStudioProjects/Test_42_label_apkName/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values/values.xml -->
     <eat-comment/>
     <style name="TextAppearance.AppCompat.Base.CompactMenu.Dialog" parent="android:TextAppearance.Medium">
         <item name="android:textColor">@android:color/primary_text_light</item>

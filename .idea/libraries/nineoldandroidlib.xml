@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="nineoldandroidlib">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/nineoldandroidlib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/app/home/chenhewen/F/android_studio/Test_42_label_apkName/libs/nineoldandroidlib.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

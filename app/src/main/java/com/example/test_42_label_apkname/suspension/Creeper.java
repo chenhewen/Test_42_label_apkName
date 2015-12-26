@@ -14,13 +14,11 @@ import com.nineoldandroids.animation.ValueAnimator;
  */
 public class Creeper extends FrameLayout {
 
-    private static final int LIGHT_ALPHA = 255;
-
-    private static final int DIM_ALPHA = LIGHT_ALPHA / 2 ;
-
+    public static final int LIGHT_ALPHA = 255;
+    public static final int DIM_ALPHA = LIGHT_ALPHA / 2 ;
     private int mBackgroundAlpha;
-
     private GestureDetector mGestureDetector;
+    private CreeperManager.OnMoreGestureListener mMoreGestureListener;
 
     public Creeper(Context context) {
         super(context);
@@ -39,8 +37,6 @@ public class Creeper extends FrameLayout {
 
     private void init(Context context) {
         setBackgroundColor(0xff0000ff);
-        mGestureDetector = new GestureDetector(context, mOnGestureListener);
-        mGestureDetector.setOnDoubleTapListener(mOnDoubleTapListener);
     }
 
     @Override
@@ -52,62 +48,15 @@ public class Creeper extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP && mMoreGestureListener != null) {
+            mMoreGestureListener.onUp(event);
+        }
 
         return mGestureDetector.onTouchEvent(event);
-
     }
 
-    private GestureDetector.OnGestureListener mOnGestureListener = new GestureDetector.OnGestureListener() {
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return false;
-        }
-
-        @Override
-        public void onShowPress(MotionEvent e) {
-
-        }
-
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            return false;
-        }
-
-        @Override
-        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            return false;
-        }
-
-        @Override
-        public void onLongPress(MotionEvent e) {
-
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            return false;
-        }
-    };
-
-    private GestureDetector.OnDoubleTapListener mOnDoubleTapListener = new GestureDetector.OnDoubleTapListener() {
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-            return false;
-        }
-
-        @Override
-        public boolean onDoubleTap(MotionEvent e) {
-            return false;
-        }
-
-        @Override
-        public boolean onDoubleTapEvent(MotionEvent e) {
-            return false;
-        }
-    };
-
-    public void startDimAnim() {
-        ValueAnimator v = ValueAnimator.ofInt(LIGHT_ALPHA, DIM_ALPHA);
+    public void startAlphaAnim(int startAlpha, int endAlpha) {
+        ValueAnimator v = ValueAnimator.ofInt(startAlpha, endAlpha);
         v.setDuration(1000);
         v.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -119,16 +68,9 @@ public class Creeper extends FrameLayout {
         invalidate();
     }
 
-    public void startLightAnim() {
-        ValueAnimator v = ValueAnimator.ofInt(DIM_ALPHA, LIGHT_ALPHA);
-        v.setDuration(1000);
-        v.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                mBackgroundAlpha = (Integer) valueAnimator.getAnimatedValue();
-            }
-        });
-        v.start();
-        invalidate();
+    public void setGestureListeners(CreeperManager.OnMoreGestureListener gestureListener, GestureDetector.OnDoubleTapListener doubleTapListener) {
+        mMoreGestureListener = gestureListener;
+        mGestureDetector = new GestureDetector(getContext(), gestureListener);
+        mGestureDetector.setOnDoubleTapListener(doubleTapListener);
     }
 }

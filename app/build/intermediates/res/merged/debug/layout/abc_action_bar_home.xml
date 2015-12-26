@@ -36,4 +36,4 @@
                android:adjustViewBounds="true"
                android:scaleType="fitCenter"/>
 </view>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_home.xml --><!-- From: file:/home/chenhewen/F/android_studio/Test_42_label_apkName/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_action_bar_home.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_home.xml --><!-- From: file:/F:/AndroidStudioProjects/Test_42_label_apkName/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/layout/abc_action_bar_home.xml -->
