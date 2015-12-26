@@ -1,6 +1,7 @@
 package com.example.test_42_label_apkname.suspension;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -30,6 +31,8 @@ public class CreeperManager {
 
     private Creeper mCreeperView;
 
+    private int mWallDirection = CreeperCal.CREEP_DIRECTION_LEFT;
+
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowParams;
     private WindowManager.LayoutParams mBackupWindowParams;
@@ -58,6 +61,40 @@ public class CreeperManager {
         private static final int ANIM_DIM_TO_LIGHT = 0x1 << 3;
 
         private static final int ANIM_LIGHT_TO_DIM = 0x1 << 4;
+    }
+
+    private static class CreeperCal {
+
+        private static final int CREEP_DIRECTION_LEFT = 1;
+
+        private static final int CREEP_DIRECTION_TOP = 2;
+
+        private static final int CREEP_DIRECTION_RIGHT = 3;
+
+        private static final int CREEP_DIRECTION_BOTTOM = 4;
+
+        private static int getCreepDirection(int cx, int cy) {
+
+            int screenWidth = DrawUtils.sWidthPixels;
+            int screenHeight = DrawUtils.sHeightPixels;
+
+            int left = cx;
+            int top = cy;
+            int right = screenWidth - cx;
+            int bottom = screenHeight - cy;
+
+            int min = Math.min(Math.min(left, right), Math.min(top, bottom));
+
+            //Log.d(TAG, "screenWidth: " + screenWidth + " screenHeight: " + screenHeight);
+            //Log.d(TAG, "left: " + left + " top: " + top + " right: " + right +  " bottom: " + bottom);
+
+            if (min == left) return CreeperCal.CREEP_DIRECTION_LEFT;
+            if (min == top) return CreeperCal.CREEP_DIRECTION_TOP;
+            if (min == right) return CreeperCal.CREEP_DIRECTION_RIGHT;
+            if (min == bottom) return CreeperCal.CREEP_DIRECTION_BOTTOM;
+
+            throw new IllegalArgumentException("unknow direction...");
+        }
     }
 
     public boolean create() {
@@ -121,13 +158,11 @@ public class CreeperManager {
         return false;
     }
 
-    private static final int CREEP_DIRECTION_LEFT = 1;
-    private static final int CREEP_DIRECTION_TOP = 2;
-    private static final int CREEP_DIRECTION_RIGHT = 3;
-    private static final int CREEP_DIRECTION_BOTTOM = 4;
-
     private int creepToWall() {
-        int direction = getCreepDirection();
+        int cx = mWindowParams.x + mCreeperView.getWidth() / 2;
+        int cy = mWindowParams.y + mCreeperView.getHeight() / 2;
+        int direction = CreeperCal.getCreepDirection(cx, cy);
+        mWallDirection = direction;
         //Log.d(TAG, "creepToWall direction: " + direction);
 
         int destX = mWindowParams.x;
@@ -136,14 +171,16 @@ public class CreeperManager {
         int screenWidth = DrawUtils.sWidthPixels;
         int screenHeight = DrawUtils.sHeightPixels;
 
-        if (direction == CREEP_DIRECTION_LEFT) {
+        if (direction == CreeperCal.CREEP_DIRECTION_LEFT) {
             destX = 0;
-        } else if (direction == CREEP_DIRECTION_TOP) {
+        } else if (direction == CreeperCal.CREEP_DIRECTION_TOP) {
             destY = 0;
-        } else if (direction == CREEP_DIRECTION_RIGHT) {
+        } else if (direction == CreeperCal.CREEP_DIRECTION_RIGHT) {
             destX = screenWidth - mCreeperView.getWidth();
-        } else {
+        } else if (direction == CreeperCal.CREEP_DIRECTION_BOTTOM) {
             destY = screenHeight - mCreeperView.getHeight();
+        } else {
+            throw new IllegalArgumentException("unknown direction...");
         }
 
         final int finalX = destX;
@@ -168,30 +205,7 @@ public class CreeperManager {
         return  direction;
     }
 
-    private int getCreepDirection() {
-        int cx = mWindowParams.x + mCreeperView.getWidth() / 2;
-        int cy = mWindowParams.y + mCreeperView.getHeight() / 2;
 
-        int screenWidth = DrawUtils.sWidthPixels;
-        int screenHeight = DrawUtils.sHeightPixels;
-
-        int left = cx;
-        int top = cy;
-        int right = screenWidth - cx;
-        int bottom = screenHeight - cy;
-
-        int min = Math.min(Math.min(left, right), Math.min(top, bottom));
-
-        //Log.d(TAG, "screenWidth: " + screenWidth + " screenHeight: " + screenHeight);
-        //Log.d(TAG, "left: " + left + " top: " + top + " right: " + right +  " bottom: " + bottom);
-
-        if (min == left) return CREEP_DIRECTION_LEFT;
-        if (min == top) return CREEP_DIRECTION_TOP;
-        if (min == right) return CREEP_DIRECTION_RIGHT;
-        if (min == bottom) return CREEP_DIRECTION_BOTTOM;
-
-        return 0;
-    }
 
     private void initWindowParam() {
         int width = DrawUtils.dip2px(150);
@@ -211,8 +225,51 @@ public class CreeperManager {
         mWindowParams.type = WindowManager.LayoutParams.TYPE_PHONE;
     }
 
+    /**
+     * 当发生横竖屏变换的时候，WindowParams的值并没有发生变化， 但是参考坐标系发生了变化
+     */
+    public void updateWindowParamsOnOrientationChanged(int orientation) {
+        if (orientation != Configuration.ORIENTATION_LANDSCAPE && orientation != Configuration.ORIENTATION_PORTRAIT) {
+            throw new IllegalArgumentException("wrong orientation...");
+        }
+
+        int direction = mWallDirection;
+        int oldScreenWidth = DrawUtils.sWidthPixels;
+        int oldScreenHeight = DrawUtils.sHeightPixels;
+        int oldX = mWindowParams.x;
+        int oldY = mWindowParams.y;
+
+        DrawUtils.resetForce(mContext);
+        int newScreenWidth = DrawUtils.sWidthPixels;
+        int newScreenHeight = DrawUtils.sHeightPixels;
+
+        int newX = 0;
+        int newY = 0;
+
+        if (direction == CreeperCal.CREEP_DIRECTION_LEFT) {
+            newY = (int) ((1.0f * oldY / oldScreenHeight) * newScreenHeight);
+        } else if (direction == CreeperCal.CREEP_DIRECTION_TOP) {
+            newX = (int) ((1.0f * oldX / oldScreenWidth) * newScreenWidth);
+        } else if (direction == CreeperCal.CREEP_DIRECTION_RIGHT) {
+            newX = newScreenWidth - mCreeperView.getWidth();
+            newY = (int) ((1.0f * oldY / oldScreenHeight) * newScreenHeight);
+        } else if (direction == CreeperCal.CREEP_DIRECTION_BOTTOM) {
+            newX = (int) ((1.0f * oldX / oldScreenWidth) * newScreenWidth);
+            newY = newScreenHeight - mCreeperView.getHeight();
+        } else {
+            throw new IllegalArgumentException("unknow direction...");
+        }
+
+        mWindowParams.x = newX;
+        mWindowParams.y = newY;
+
+        updateWindowParams();
+
+    }
+
     private void updateWindowParams() {
         mWindowManager.updateViewLayout(mCreeperView, mWindowParams);
+        Log.d(TAG, "updateWindowParams: paramX: " + mWindowParams.x + " paramY: " + mWindowParams.y);
     }
 
     public class OnMoreGestureListener implements GestureDetector.OnGestureListener {

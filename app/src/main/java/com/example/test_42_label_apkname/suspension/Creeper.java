@@ -1,6 +1,7 @@
 package com.example.test_42_label_apkname.suspension;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -47,6 +48,17 @@ public class Creeper extends FrameLayout {
         setWillNotDraw(false);
         mBackgroundAlpha = LIGHT_ALPHA;
         mDrawable = context.getResources().getDrawable(R.drawable.ic_launcher);
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d(TAG, "landscape screen");
+        } else {
+            Log.d(TAG, "portrait screen");
+        }
+        CreeperManager.getInstance(getContext()).updateWindowParamsOnOrientationChanged(newConfig.orientation);
     }
 
     @Override
