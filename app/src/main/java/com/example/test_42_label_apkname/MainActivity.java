@@ -1,10 +1,6 @@
 package com.example.test_42_label_apkname;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,8 +15,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.test_42_label_apkname.data.AppBean;
-import com.example.test_42_label_apkname.suspension.Creeper;
-import com.example.test_42_label_apkname.suspension.SuspensionManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -65,8 +59,6 @@ public class MainActivity extends Activity {
             }
             Log.d(TAG, "label: " + info.loadLabel(getPackageManager()).toString());
         }*/
-
-        SuspensionManager.getInstance(this).createCreeper();
 
         //loadData();
         //initView();

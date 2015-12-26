@@ -108,6 +108,7 @@ public class CreeperManager {
 
     public boolean destroy() {
         if ((mViewFlags & CreeperState.GONE) == 0) {
+            Log.d(TAG, "destroy");
             mViewFlags = CreeperState.GONE;
             mWindowManager.removeView(mCreeperView);
             mCreeperView = null;
@@ -205,7 +206,7 @@ public class CreeperManager {
         mWindowParams.x = 0;
         mWindowParams.y = 0;
         mWindowParams.gravity = Gravity.LEFT | Gravity.TOP;
-        mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
+        mWindowParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
         mWindowParams.format = PixelFormat.TRANSLUCENT;
         mWindowParams.type = WindowManager.LayoutParams.TYPE_PHONE;
     }

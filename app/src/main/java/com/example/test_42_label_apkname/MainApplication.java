@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.example.test_42_label_apkname.suspension.SuspensionManager;
+
 /**
  * Created by chenhewen on 12/15/15.
  */
@@ -29,6 +31,8 @@ public class MainApplication extends Application {
         sPackageManager = getPackageManager();
         mGlobalDataHub = GlobalDataHub.initGlobalDataHub(this);
         mGlobalDataHub.loadGlobalData();
+
+        SuspensionManager.getInstance(this).createCreeper();
     }
 
     public static PackageManager getGlobalPM() {
