@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.example.test_42_label_apkname.GlobalHandler;
 import com.example.test_42_label_apkname.util.DrawUtils;
 import com.nineoldandroids.animation.ValueAnimator;
 
@@ -18,6 +19,8 @@ import com.nineoldandroids.animation.ValueAnimator;
 public class CreeperManager {
 
     private static final String TAG = "CreeperManager";
+
+    private static final long DIM_DELAY_MILLIS = 5000;
 
     private Context mContext;
 
@@ -51,6 +54,10 @@ public class CreeperManager {
         private static final int VISIBLE_LIGHT = 0x1 << 1;
 
         private static final int VISIBLE_DIM = 0x1 << 2;
+
+        private static final int ANIM_DIM_TO_LIGHT = 0x1 << 3;
+
+        private static final int ANIM_LIGHT_TO_DIM = 0x1 << 4;
     }
 
     public boolean create() {
@@ -71,21 +78,32 @@ public class CreeperManager {
     public boolean dim() {
         if ((mViewFlags & CreeperState.VISIBLE_LIGHT) != 0) {
             mViewFlags = CreeperState.VISIBLE_DIM;
-            mCreeperView.startAlphaAnim(Creeper.LIGHT_ALPHA, Creeper.DIM_ALPHA);
+            mCreeperView.startAlphaAnim(Creeper.LIGHT_ALPHA, Creeper.DIM_ALPHA, 1000);
             return true;
         }
 
         return false;
     }
 
-    public boolean light() {
-        if ((mViewFlags & CreeperState.VISIBLE_DIM) != 0) {
-            mViewFlags = CreeperState.VISIBLE_LIGHT;
-            mCreeperView.startAlphaAnim(Creeper.DIM_ALPHA, Creeper.LIGHT_ALPHA);
-            return true;
-        }
+    private Runnable mDimTask = new Runnable() {
 
-        return false;
+        @Override
+        public void run() {
+            dim();
+        }
+    };
+
+    public boolean dimDelay() {
+        GlobalHandler.postInMainThread(mDimTask, DIM_DELAY_MILLIS);
+
+        return true;
+    }
+
+    public boolean light() {
+        mViewFlags = CreeperState.VISIBLE_LIGHT;
+        mCreeperView.startAlphaAnim(Creeper.DIM_ALPHA, Creeper.LIGHT_ALPHA, 0);
+        GlobalHandler.cancelMainThreadPost(mDimTask);
+        return true;
     }
 
     public boolean destroy() {
@@ -95,6 +113,7 @@ public class CreeperManager {
             mCreeperView = null;
             mWindowManager = null;
             mWindowParams = null;
+            GlobalHandler.cancelMainThreadPost(mDimTask);
             return true;
         }
 
@@ -108,7 +127,7 @@ public class CreeperManager {
 
     private int creepToWall() {
         int direction = getCreepDirection();
-        Log.d(TAG, "creepToWall direction: " + direction);
+        //Log.d(TAG, "creepToWall direction: " + direction);
 
         int destX = mWindowParams.x;
         int destY = mWindowParams.y;
@@ -162,8 +181,8 @@ public class CreeperManager {
 
         int min = Math.min(Math.min(left, right), Math.min(top, bottom));
 
-        Log.d(TAG, "screenWidth: " + screenWidth + " screenHeight: " + screenHeight);
-        Log.d(TAG, "left: " + left + " top: " + top + " right: " + right +  " bottom: " + bottom);
+        //Log.d(TAG, "screenWidth: " + screenWidth + " screenHeight: " + screenHeight);
+        //Log.d(TAG, "left: " + left + " top: " + top + " right: " + right +  " bottom: " + bottom);
 
         if (min == left) return CREEP_DIRECTION_LEFT;
         if (min == top) return CREEP_DIRECTION_TOP;
@@ -198,9 +217,11 @@ public class CreeperManager {
     public class OnMoreGestureListener implements GestureDetector.OnGestureListener {
         @Override
         public boolean onDown(MotionEvent motionEvent) {
+            mViewFlags = CreeperState.ANIM_DIM_TO_LIGHT;
+            light();
             mBackupWindowParams = new WindowManager.LayoutParams();
             mBackupWindowParams.copyFrom(mWindowParams);
-            Log.d(TAG, "onDown method called");
+            Log.d(TAG, "onDown");
             return false;
         }
 
@@ -238,6 +259,7 @@ public class CreeperManager {
         public boolean onUp(MotionEvent motionEvent) {
             Log.d(TAG, "onUp");
             creepToWall();
+            dimDelay();
             return false;
         }
     }
