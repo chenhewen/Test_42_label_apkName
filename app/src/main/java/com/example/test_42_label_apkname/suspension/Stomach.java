@@ -18,6 +18,7 @@ import com.example.test_42_label_apkname.suspension.pager.AbstractAssembledPage;
 public class Stomach{
 
     private static final String TAG = "Stomach";
+    private final LayoutInflater mLayoutInflater;
     private Context mContext;
 
     private View mContentView;
@@ -25,6 +26,7 @@ public class Stomach{
 
     public Stomach(Context context) {
         mContext = context;
+        mLayoutInflater = LayoutInflater.from(mContext);
         initContentView();
         initViewPager();
     }
@@ -55,7 +57,14 @@ public class Stomach{
         final AbstractAssembledPage page2 = new AbstractAssembledPage(mContext);
         final AbstractAssembledPage page3 = new AbstractAssembledPage(mContext);
         final AbstractAssembledPage[] pages = {page1, page2, page3};
+        /*final GridAssembledPage page1 = new GridAssembledPage(mContext);
+        final GridAssembledPage page2 = new GridAssembledPage(mContext);
+        final GridAssembledPage page3 = new GridAssembledPage(mContext);
+        final GridAssembledPage[] pages = {page1, page2, page3};*/
         mViewPager.setAdapter(new PagerAdapter() {
+
+            private ViewGroup mStomachContainer;
+
             @Override
             public int getCount() {
                 return 3;
@@ -63,12 +72,14 @@ public class Stomach{
 
             @Override
             public Object instantiateItem(ViewGroup container, final int position) {
+                mStomachContainer = (ViewGroup) mLayoutInflater.inflate(R.layout.stomach_container, null);
 
                 AbstractAssembledPage page = pages[position];
                 View contentView = page.getContentView();
-                container.addView(contentView);
+                mStomachContainer.addView(contentView);
+                container.addView(mStomachContainer);
                 Log.d(TAG, "instantiateItem");
-                return contentView;
+                return mStomachContainer;
             }
 
             @Override

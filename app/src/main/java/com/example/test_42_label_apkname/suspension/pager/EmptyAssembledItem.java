@@ -15,11 +15,11 @@ public class EmptyAssembledItem extends AbstractAssembledItem {
 
     @Override
     public Drawable getNormalImage() {
-        return null;
+        return getContext().getResources().getDrawable(R.drawable.plus);
     }
 
     @Override
     public Drawable getEditImage() {
-        return getContext().getResources().getDrawable(R.drawable.plus);
+        return getContext().getResources().getDrawable(R.drawable.ic_launcher);
     }
 }
