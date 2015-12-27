@@ -5,9 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-
-import com.example.test_42_label_apkname.R;
 
 /**
  * Created by Administrator on 2015/12/27.
@@ -47,10 +44,7 @@ public class GridAssembledPage extends AbstractAssembledPage {
 
             @Override
             public View getView(int i, View view, ViewGroup viewGroup) {
-                ViewGroup itemView = (ViewGroup) getLayoutInflater().inflate(R.layout.grid_assembled_page_item_layout, null);
-                ImageView image = (ImageView) itemView.findViewById(R.id.image);
-                image.setImageDrawable(items[i].getImage());
-                return itemView;
+                return items[i].getView();
             }
         });
 

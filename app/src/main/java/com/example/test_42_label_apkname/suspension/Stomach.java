@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.test_42_label_apkname.R;
 import com.example.test_42_label_apkname.suspension.pager.AbstractAssembledPage;
+import com.example.test_42_label_apkname.suspension.pager.GridAssembledPage;
 
 /**
  * Created by Administrator on 2015/12/27.
@@ -53,17 +54,15 @@ public class Stomach{
 
     private void initViewPager() {
         mViewPager = (ViewPager) mContentView.findViewById(R.id.view_pager);
-        final AbstractAssembledPage page1 = new AbstractAssembledPage(mContext);
+        /*final AbstractAssembledPage page1 = new AbstractAssembledPage(mContext);
         final AbstractAssembledPage page2 = new AbstractAssembledPage(mContext);
         final AbstractAssembledPage page3 = new AbstractAssembledPage(mContext);
-        final AbstractAssembledPage[] pages = {page1, page2, page3};
-        /*final GridAssembledPage page1 = new GridAssembledPage(mContext);
+        final AbstractAssembledPage[] pages = {page1, page2, page3};*/
+        final GridAssembledPage page1 = new GridAssembledPage(mContext);
         final GridAssembledPage page2 = new GridAssembledPage(mContext);
         final GridAssembledPage page3 = new GridAssembledPage(mContext);
-        final GridAssembledPage[] pages = {page1, page2, page3};*/
+        final GridAssembledPage[] pages = {page1, page2, page3};
         mViewPager.setAdapter(new PagerAdapter() {
-
-            private ViewGroup mStomachContainer;
 
             @Override
             public int getCount() {
@@ -72,18 +71,18 @@ public class Stomach{
 
             @Override
             public Object instantiateItem(ViewGroup container, final int position) {
-                mStomachContainer = (ViewGroup) mLayoutInflater.inflate(R.layout.stomach_container, null);
-
+                Log.d(TAG, "instantiateItem");
+                ViewGroup stomachContainer = (ViewGroup) mLayoutInflater.inflate(R.layout.stomach_container, null);
                 AbstractAssembledPage page = pages[position];
                 View contentView = page.getContentView();
-                mStomachContainer.addView(contentView);
-                container.addView(mStomachContainer);
-                Log.d(TAG, "instantiateItem");
-                return mStomachContainer;
+                stomachContainer.addView(contentView);
+                container.addView(stomachContainer);
+                return stomachContainer;
             }
 
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
+                Log.d(TAG, "destroyItem");
                 container.removeView((View) object);
             }
 
@@ -92,6 +91,7 @@ public class Stomach{
                 return view == object;
             }
         });
+        mViewPager.setOffscreenPageLimit(3);
     }
 
     public View getView() {
