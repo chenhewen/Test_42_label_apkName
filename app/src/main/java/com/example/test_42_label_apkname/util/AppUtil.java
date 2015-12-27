@@ -1,11 +1,16 @@
 package com.example.test_42_label_apkname.util;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import com.example.test_42_label_apkname.MainApplication;
+
+import java.util.List;
 
 
 /**
@@ -54,5 +59,23 @@ public class AppUtil {
         return "";
     }
 
+    /**
+     * 获取当前前台Activity的应用的包名.<br>
+     * 注意:只适用于5.0以下使用.<br>
+     *
+     * @param context
+     * @return 对应的包名或为空当出错时
+     */
+    public static ComponentName getTopActivity(Context context) {
+        ActivityManager am = (ActivityManager) context
+                .getSystemService(Activity.ACTIVITY_SERVICE);
+        // get the info from the currently running task
+        List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+        if (taskInfo == null || taskInfo.isEmpty()) {
+            return null;
+        }
+        ComponentName componentInfo = taskInfo.get(0).topActivity;
+        return componentInfo;
+    }
 
 }

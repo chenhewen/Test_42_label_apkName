@@ -31,4 +31,11 @@ public class SuspensionManager {
         CreeperManager.getInstance(mContext).destroy();
     }
 
+    public void openStomach() {
+        StomachManager.getInstance(mContext).open();
+    }
+
+    public void closeStomach() {
+        StomachManager.getInstance(mContext).close();
+    }
 }
