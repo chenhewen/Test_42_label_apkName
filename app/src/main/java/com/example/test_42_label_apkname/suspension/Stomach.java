@@ -3,6 +3,7 @@ package com.example.test_42_label_apkname.suspension;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,10 @@ public class Stomach{
 
     private void initViewPager() {
         mViewPager = (ViewPager) mContentView.findViewById(R.id.view_pager);
+        final AbstractAssembledPage page1 = new AbstractAssembledPage(mContext);
+        final AbstractAssembledPage page2 = new AbstractAssembledPage(mContext);
+        final AbstractAssembledPage page3 = new AbstractAssembledPage(mContext);
+        final AbstractAssembledPage[] pages = {page1, page2, page3};
         mViewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
@@ -57,12 +62,12 @@ public class Stomach{
             }
 
             @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                /*ImagePage page = new ImagePage(mContext);
-                ImageView contentView = page.getContentView();*/
-                AbstractAssembledPage page = new AbstractAssembledPage(mContext);
+            public Object instantiateItem(ViewGroup container, final int position) {
+
+                AbstractAssembledPage page = pages[position];
                 View contentView = page.getContentView();
                 container.addView(contentView);
+                Log.d(TAG, "instantiateItem");
                 return contentView;
             }
 

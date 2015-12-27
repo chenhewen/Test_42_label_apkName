@@ -6,7 +6,7 @@ package com.example.test_42_label_apkname.suspension.pager;
 public interface Assembled {
     void add(int index, AssembledItem item);
 
-    void remove(int index, AssembledItem item);
+    void remove(int index);
 
-    void edit(int index, AssembledItem item);
+    void edit(int index);
 }

@@ -1,7 +1,7 @@
 package com.example.test_42_label_apkname.suspension.pager;
 
 import android.content.Context;
-import android.view.View;
+import android.graphics.drawable.Drawable;
 
 /**
  * Created by Administrator on 2015/12/27.
@@ -49,12 +49,24 @@ public abstract class AbstractAssembledItem implements AssembledItem {
 
     @Override
     public void edit() {
+        mInEditMode = true;
+    }
+
+    @Override
+    public void cancelEdit() {
+        mInEditMode = false;
+    }
+
+    protected Drawable getImage() {
         if (mInEditMode) {
-            mInEditMode = false;
+            return getEditImage();
         } else {
-            mInEditMode = true;
+            return getNormalImage();
         }
     }
 
-    public abstract View getView();
+    protected abstract Drawable getNormalImage();
+
+    protected abstract Drawable getEditImage();
+
 }

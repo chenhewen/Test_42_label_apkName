@@ -1,9 +1,7 @@
 package com.example.test_42_label_apkname.suspension.pager;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ImageView;
+import android.graphics.drawable.Drawable;
 
 import com.example.test_42_label_apkname.R;
 
@@ -16,11 +14,12 @@ public class EmptyAssembledItem extends AbstractAssembledItem {
     }
 
     @Override
-    public View getView() {
-        ImageView imageView = new ImageView(getContext());
-        imageView.setImageResource(R.drawable.plus);
-        AbsListView.LayoutParams params = new AbsListView.LayoutParams(100, 100);
-        imageView.setLayoutParams(params);
-        return imageView;
+    public Drawable getNormalImage() {
+        return null;
+    }
+
+    @Override
+    public Drawable getEditImage() {
+        return getContext().getResources().getDrawable(R.drawable.plus);
     }
 }

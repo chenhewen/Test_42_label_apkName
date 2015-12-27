@@ -10,4 +10,6 @@ public interface AssembledItem {
     void remove();
 
     void edit();
+
+    void cancelEdit();
 }
